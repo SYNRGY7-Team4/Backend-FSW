@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id               String    @id @db.Uuid
+  created_date     DateTime  @db.Timestamp(6)
+  deleted          Boolean
+  deleted_date     DateTime? @db.Timestamp(6)
+  updated_date     DateTime  @db.Timestamp(6)
+  date_of_birth    DateTime? @db.Timestamp(6)
+  ektp_photo       Int?      @db.Oid
+  email            String    @unique(map: "uk6dotkott2kjsp8vw4d0m25fb7") @db.VarChar(255)
+  name             String?   @db.VarChar(255)
+  no_hp            String?   @unique(map: "uknv2aaueu0jye4m5s9hwftk42n") @db.VarChar(255)
+  no_ktp           String?   @unique(map: "uk1vcjlpmbviy95i2b5tq37hmky") @db.VarChar(255)
+  password         String?   @db.VarChar(255)
+  otp              String?   @db.VarChar(100)
+  otp_expired_date DateTime? @db.Timestamp(6)
+}
