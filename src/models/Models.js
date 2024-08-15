@@ -1,3 +1,4 @@
 import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
-export const UsersModels = new PrismaClient().users;
+export const UsersModels = prisma.users;

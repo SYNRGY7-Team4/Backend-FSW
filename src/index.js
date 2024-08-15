@@ -76,7 +76,7 @@ const PORT = process.env.PORT || 3000;
 
 //		LISTENER
 app
-  .listen(PORT, () => {
+  .listen(PORT, "0.0.0.0", () => {
     console.log(`Listen to port ${PORT}`);
   })
   .on("error", (err) => {
