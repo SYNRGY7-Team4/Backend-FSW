@@ -6,7 +6,7 @@ class UserService {
   }
 
   async getUser(filter) {
-    return await this.userModel.findMany({ where: filter });
+    return await this.userModel.findFirst({ where: filter });
   }
 }
 

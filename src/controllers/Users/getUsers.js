@@ -15,7 +15,7 @@ export const getUsers = async (req, res, next) => {
     }
 
     const result = await userService.getUser(filter);
-    if (result.length > 0) {
+    if (result) {
       throw new ClientError(`${Message} sudah terdaftar`);
     }
 

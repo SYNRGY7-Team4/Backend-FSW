@@ -19,7 +19,7 @@ model users {
   name             String?   @db.VarChar(255)
   no_hp            String?   @unique(map: "uknv2aaueu0jye4m5s9hwftk42n") @db.VarChar(255)
   no_ktp           String?   @unique(map: "uk1vcjlpmbviy95i2b5tq37hmky") @db.VarChar(255)
-  password         String?   @db.VarChar(255)
   otp              String?   @db.VarChar(100)
   otp_expired_date DateTime? @db.Timestamp(6)
+  password         String?   @db.VarChar(255)
 }

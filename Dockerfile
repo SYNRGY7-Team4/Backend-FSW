@@ -1,21 +1,33 @@
-FROM node:18-slim
+# base image
+FROM node:18-alpine3.18
 
-# create a working directory
-WORKDIR /app
+# create & set working directory
+RUN mkdir -p /usr/src
+WORKDIR /usr/src
 
-# install the dependencies
+# copy source files
+COPY . /usr/src
+
 COPY package*.json ./
 
-# run npm update
 RUN npm update
 
 # run npm install
 RUN npm install 
 
-# copy the application code
+COPY prisma ./prisma/
+
 COPY . .
+
+# Generate Prisma client
+RUN npx prisma generate
+
+# Build the application
+RUN npm run build
 
 EXPOSE 3000
 
-# execute the npm start command
+# Set environment variable
+ENV PORT=3000
+
 CMD [ "npm", "run", "start" ]
