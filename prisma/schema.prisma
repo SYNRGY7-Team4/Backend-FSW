@@ -8,18 +8,72 @@ datasource db {
 }
 
 model users {
-  id               String    @id @db.Uuid
-  created_date     DateTime  @db.Timestamp(6)
+  id               String         @id @db.Uuid
+  created_date     DateTime       @db.Timestamp(6)
   deleted          Boolean
-  deleted_date     DateTime? @db.Timestamp(6)
-  updated_date     DateTime  @db.Timestamp(6)
-  date_of_birth    DateTime? @db.Timestamp(6)
-  ektp_photo       Int?      @db.Oid
-  email            String    @unique(map: "uk6dotkott2kjsp8vw4d0m25fb7") @db.VarChar(255)
-  name             String?   @db.VarChar(255)
-  no_hp            String?   @unique(map: "uknv2aaueu0jye4m5s9hwftk42n") @db.VarChar(255)
-  no_ktp           String?   @unique(map: "uk1vcjlpmbviy95i2b5tq37hmky") @db.VarChar(255)
-  otp              String?   @db.VarChar(100)
-  otp_expired_date DateTime? @db.Timestamp(6)
-  password         String?   @db.VarChar(255)
+  deleted_date     DateTime?      @db.Timestamp(6)
+  updated_date     DateTime       @db.Timestamp(6)
+  date_of_birth    DateTime?      @db.Timestamp(6)
+  ektp_photo       String?        @db.VarChar(255)
+  email            String         @unique(map: "uk6dotkott2kjsp8vw4d0m25fb7") @db.VarChar(255)
+  name             String?        @db.VarChar(255)
+  no_hp            String?        @unique(map: "uknv2aaueu0jye4m5s9hwftk42n") @db.VarChar(255)
+  no_ktp           String?        @unique(map: "uk1vcjlpmbviy95i2b5tq37hmky") @db.VarChar(255)
+  otp              String?        @db.VarChar(100)
+  otp_expired_date DateTime?      @db.Timestamp(6)
+  password         String?        @db.VarChar(255)
+  fcm_token        String?        @db.VarChar(255)
+  account_list     account_list[]
+  accounts         accounts[]
+  fcm_tokens       fcm_tokens[]
+  tokens           tokens[]
+}
+
+model account_list {
+  id               String    @id @db.Uuid
+  owner_id         String?   @db.Uuid
+  saved_account_id String?   @db.Uuid
+  users            users?    @relation(fields: [owner_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fkchr85jau9hmt98e20rq2ojrk3")
+  accounts         accounts? @relation(fields: [saved_account_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fkf0u8225nkfct67xxn0r0cajkq")
+}
+
+model accounts {
+  id                                               String         @id @db.Uuid
+  account_number                                   String         @unique(map: "uk6kplolsdtr3slnvx97xsy2kc8") @db.VarChar(255)
+  balance                                          Decimal        @db.Decimal(38, 2)
+  pin                                              String         @db.VarChar(255)
+  user_id                                          String?        @db.Uuid
+  account_list                                     account_list[]
+  users                                            users?         @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fknjuop33mo69pd79ctplkck40n")
+  transactions_transactions_account_toToaccounts   transactions[] @relation("transactions_account_toToaccounts")
+  transactions_transactions_account_fromToaccounts transactions[] @relation("transactions_account_fromToaccounts")
+}
+
+model fcm_tokens {
+  id        String  @id @db.Uuid
+  fcm_token String  @unique(map: "uktgq9e1yv7gjnen5k9mbo2u9v") @db.VarChar(255)
+  user_id   String? @db.Uuid
+  users     users?  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fkj2kob865pl9dv5vwrs2pmshjv")
+}
+
+model tokens {
+  id                        String    @id @db.Uuid
+  expiry_date_refresh_token DateTime? @db.Timestamp(6)
+  jwt_token                 String?   @db.VarChar(255)
+  refresh_token             String?   @db.VarChar(255)
+  user_id                   String?   @db.Uuid
+  users                     users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk2dylsfo39lgjyqml2tbe0b0ss")
+}
+
+model transactions {
+  id                                           String    @id @db.Uuid
+  amount                                       Decimal?  @db.Decimal(38, 2)
+  datetime                                     DateTime? @db.Timestamp(6)
+  description                                  String?   @db.VarChar(255)
+  status                                       String?   @db.VarChar(255)
+  type                                         String?   @db.VarChar(255)
+  account_from                                 String?   @db.VarChar(255)
+  account_to                                   String?   @db.VarChar(255)
+  accounts_transactions_account_toToaccounts   accounts? @relation("transactions_account_toToaccounts", fields: [account_to], references: [account_number], onDelete: NoAction, onUpdate: NoAction, map: "fk3as49t5momo7fbrc9wt3b0sib")
+  accounts_transactions_account_fromToaccounts accounts? @relation("transactions_account_fromToaccounts", fields: [account_from], references: [account_number], onDelete: NoAction, onUpdate: NoAction, map: "fknw8bq68q65mw4ga3bafm7lefa")
 }

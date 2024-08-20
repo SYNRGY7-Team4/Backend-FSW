@@ -15,12 +15,9 @@ RUN npm update
 # run npm install
 RUN npm install 
 
-COPY . .
-
 COPY prisma ./prisma/
 
-# Pull db
-RUN npx prisma db pull
+COPY . .
 
 # Generate Prisma client
 RUN npx prisma generate
