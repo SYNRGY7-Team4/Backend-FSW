@@ -19,6 +19,9 @@ COPY prisma ./prisma/
 
 COPY . .
 
+# Pull db
+RUN npx prisma db pull
+
 # Generate Prisma client
 RUN npx prisma generate
 
