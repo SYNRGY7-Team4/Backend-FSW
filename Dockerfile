@@ -15,9 +15,9 @@ RUN npm update
 # run npm install
 RUN npm install 
 
-COPY prisma ./prisma/
-
 COPY . .
+
+COPY prisma ./prisma/
 
 # Pull db
 RUN npx prisma db pull
