@@ -21,7 +21,6 @@ export const getUsers = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      data: result,
       message: `${Message} belum terdaftar`,
     });
   } catch (error) {
