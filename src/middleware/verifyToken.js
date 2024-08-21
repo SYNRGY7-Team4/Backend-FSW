@@ -15,7 +15,10 @@ export const verifyToken = (req = request, res = response, next) => {
     }
 
     const tokenValue = token.split(" ")[1];
-    const decodedBase64 = Buffer.from(process.env.JWT_SECRET, "base64");
+    const decodedBase64 = Buffer.from(
+      process.env.JWT_SECRET || "90blwCqJS9jqHORniIxsCwmoCmhhszbOSxjvAZG92KM=",
+      "base64"
+    );
 
     jwt.verify(tokenValue, decodedBase64, async (err, decoded) => {
       if (err) {
