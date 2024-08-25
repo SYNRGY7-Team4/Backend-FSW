@@ -17,7 +17,7 @@ Lumi is a cutting-edge accessibility banking app that breaks down barriers for f
 
 ### Links
 
-- Live API URL : [lumibank.netlify.app](https://lumibank-api-fsw-edqo6jv53q-et.a.run.app/)
+- Live API URL : [LumiBank FSW API](https://lumibank-api-fsw-edqo6jv53q-et.a.run.app/)
 - Live API Documentation in Postman : [LumiBank FSW API Documentation](https://documenter.getpostman.com/view/22135167/2sA3s7ioWc)
 
 ### Endpoints
